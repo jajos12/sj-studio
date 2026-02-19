@@ -1,36 +1,99 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ✦ SJ Studio
 
-## Getting Started
+> Premium content creation studio for Telegram — generate stunning post images with 8 unique visual styles.
 
-First, run the development server:
+![Gallery Preview](docs/gallery-preview.png)
+
+---
+
+## ⚡ Features
+
+- **8 Visual Styles** — Terminal ASCII, Glassmorphism, VHS/Glitch, Gradient Typography, Notebook, Blueprint, Node Graph, Polaroid
+- **20+ Templates** — PFP cards, announcements, quotes, articles, checklists, spec sheets, system diagrams, photo walls & more
+- **25+ Color Themes** — from Matrix Green and Synthwave to Classic Cream and Darkroom
+- **Live Canvas Preview** — see your changes in real-time as you type
+- **One-Click Export** — download as high-res PNG
+- **Configurable Branding** — your name, your handle, your identity across all styles
+- **CRT Effects** — scanlines, curvature, and glow controls for that authentic retro feel
+
+## 🎨 Styles
+
+| Style              | Description                                | Templates | Themes |
+| ------------------ | ------------------------------------------ | --------- | ------ |
+| **Terminal ASCII** | CRT terminal with ASCII art, hacker vibes  | 5         | 6      |
+| **Glassmorphism**  | Frosted glass cards over mesh gradients    | 3         | 5      |
+| **VHS / Glitch**   | Retro scanlines, RGB split, noise          | 3         | 1      |
+| **Gradient Type**  | Bold typography with smooth gradient fills | 3         | 6      |
+| **Notebook**       | Handwritten notes on lined paper           | 2         | 3      |
+| **Blueprint**      | Technical schematics and wireframes        | 2         | 2      |
+| **Node Graph**     | Glowing network of connected nodes         | 2         | 4      |
+| **Polaroid**       | Vintage photo frames on cork board         | 2         | 3      |
+
+## 🚀 Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to browse styles and start creating.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS v4
+- **Rendering:** Canvas 2D API
+- **Fonts:** Inter, JetBrains Mono, Outfit, Caveat, Space Mono (Google Fonts)
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+studio/
+├── app/                    # Next.js app routes
+│   ├── editor/[style]/     # Dynamic editor page
+│   └── page.tsx            # Gallery homepage
+├── components/
+│   ├── editor/             # Canvas preview, control panel
+│   └── layout/             # Sidebar, topbar
+├── lib/
+│   ├── styles/             # Style engines
+│   │   ├── terminal/       # Terminal ASCII
+│   │   ├── glass/          # Glassmorphism
+│   │   ├── glitch/         # VHS / Glitch
+│   │   ├── gradient/       # Gradient Typography
+│   │   ├── notebook/       # Notebook
+│   │   ├── blueprint/      # Blueprint
+│   │   ├── neural/         # Node Graph
+│   │   └── polaroid/       # Polaroid
+│   ├── registry.ts         # Style engine registry
+│   ├── styles.ts           # Gallery metadata
+│   ├── types.ts            # Shared TypeScript types
+│   └── utils.ts            # Helpers (text wrap, export, etc.)
+└── hooks/
+    └── useCanvas.ts        # Canvas rendering hook
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Each style has two files:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `config.ts` — templates, themes, defaults, field visibility
+- `engine.ts` — Canvas 2D render functions
 
-## Deploy on Vercel
+## 📝 Adding a New Style
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create `lib/styles/<slug>/config.ts` with templates, themes, and defaults
+2. Create `lib/styles/<slug>/engine.ts` implementing the `StyleEngine` interface
+3. Register in `lib/registry.ts`
+4. Add metadata to `lib/styles.ts`
+5. Add field visibility to `app/editor/[style]/page.tsx`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 License
+
+MIT
+
+---
+
+_Built for the [sudo jajos](https://t.me/sudo_jajos) community_
