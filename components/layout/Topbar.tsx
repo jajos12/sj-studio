@@ -5,9 +5,9 @@ interface TopbarProps {
 
 export default function Topbar({ breadcrumbs, children }: TopbarProps) {
   return (
-    <div className="h-[var(--topbar-h)] min-h-[var(--topbar-h)] bg-bg-surface border-b border-border-default flex items-center justify-between px-6">
+    <div className="h-[var(--topbar-h)] min-h-[var(--topbar-h)] bg-bg-surface border-b border-border-default flex items-center justify-between px-4 md:px-6">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-[13px]">
+      <div className="flex items-center gap-2 text-[13px] pl-10 md:pl-0">
         {breadcrumbs.map((crumb, i) => (
           <span key={i} className="flex items-center gap-2">
             {i > 0 && (
@@ -29,7 +29,7 @@ export default function Topbar({ breadcrumbs, children }: TopbarProps) {
 
       {/* Actions */}
       {children && (
-        <div className="flex items-center gap-3">{children}</div>
+        <div className="flex items-center gap-2 md:gap-3">{children}</div>
       )}
     </div>
   );

@@ -9,7 +9,7 @@ interface CanvasPreviewProps {
 export default function CanvasPreview({ canvasRef }: CanvasPreviewProps) {
   return (
     <div
-      className="flex-1 flex items-center justify-center bg-bg-root p-8 overflow-auto"
+      className="flex-1 flex items-center justify-center bg-bg-root p-4 md:p-8 overflow-auto"
       style={{
         backgroundImage:
           "radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)",
@@ -21,7 +21,7 @@ export default function CanvasPreview({ canvasRef }: CanvasPreviewProps) {
       >
         <canvas
           ref={canvasRef}
-          className="block max-w-full max-h-[calc(100vh-var(--topbar-h)-80px)] h-auto"
+          className="block max-w-full max-h-[calc(100vh-var(--topbar-h)-120px)] md:max-h-[calc(100vh-var(--topbar-h)-80px)] h-auto"
         />
       </div>
     </div>

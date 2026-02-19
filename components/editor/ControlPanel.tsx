@@ -34,7 +34,7 @@ export default function ControlPanel({
   children,
 }: ControlPanelProps) {
   return (
-    <aside className="w-[var(--controls-w)] min-w-[var(--controls-w)] bg-bg-surface border-r border-border-default overflow-y-auto p-5 flex flex-col gap-4">
+    <aside className="w-full md:w-[var(--controls-w)] md:min-w-[var(--controls-w)] bg-bg-surface border-r border-border-default overflow-y-auto p-4 md:p-5 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-2.5 pb-3 border-b border-border-default">
         <span

@@ -68,6 +68,7 @@ function EditorContent({
 }) {
   const [config, setConfig] = useState<StyleConfig>({ ...engine.defaults });
   const { canvasRef, size } = useCanvas(engine, config);
+  const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
 
   const handleChange = useCallback(
     (key: string, value: string | number) => {
@@ -102,7 +103,7 @@ function EditorContent({
           { label: meta.name },
         ]}
       >
-        <span className="text-xs font-mono text-fg-mute bg-bg-elevated px-2.5 py-1 rounded-sm border border-border-default">
+        <span className="text-xs font-mono text-fg-mute bg-bg-elevated px-2.5 py-1 rounded-sm border border-border-default hidden sm:inline">
           {size.width}×{size.height} px
         </span>
         <button
@@ -113,25 +114,54 @@ function EditorContent({
         </button>
       </Topbar>
 
-      <div className="flex-1 flex overflow-hidden">
-        <ControlPanel
-          title={meta.name}
-          icon={meta.icon}
-          iconColor={meta.accent}
-          templates={engine.templates}
-          themes={engine.themes}
-          config={config}
-          fieldVisibility={fieldVis}
-          onConfigChange={handleChange}
-          onExport={handleExport}
-          canvasSize={size}
+      {/* Mobile tab bar */}
+      <div className="flex md:hidden border-b border-border-default bg-bg-surface">
+        <button
+          className={`flex-1 py-2.5 text-xs font-semibold text-center transition-colors duration-200 cursor-pointer border-b-2 ${
+            mobileTab === "edit"
+              ? "text-accent border-b-accent bg-accent-bg"
+              : "text-fg-3 border-b-transparent hover:text-fg"
+          }`}
+          onClick={() => setMobileTab("edit")}
         >
-          {styleControls}
-        </ControlPanel>
+          ✎ Edit
+        </button>
+        <button
+          className={`flex-1 py-2.5 text-xs font-semibold text-center transition-colors duration-200 cursor-pointer border-b-2 ${
+            mobileTab === "preview"
+              ? "text-accent border-b-accent bg-accent-bg"
+              : "text-fg-3 border-b-transparent hover:text-fg"
+          }`}
+          onClick={() => setMobileTab("preview")}
+        >
+          ◉ Preview
+        </button>
+      </div>
 
-        <CanvasPreview canvasRef={canvasRef} />
+      <div className="flex-1 flex overflow-hidden">
+        {/* Controls — full width on mobile, fixed on desktop */}
+        <div className={`${mobileTab === "edit" ? "flex" : "hidden"} md:flex w-full md:w-auto`}>
+          <ControlPanel
+            title={meta.name}
+            icon={meta.icon}
+            iconColor={meta.accent}
+            templates={engine.templates}
+            themes={engine.themes}
+            config={config}
+            fieldVisibility={fieldVis}
+            onConfigChange={handleChange}
+            onExport={handleExport}
+            canvasSize={size}
+          >
+            {styleControls}
+          </ControlPanel>
+        </div>
+
+        {/* Canvas — full width on mobile, flex-1 on desktop */}
+        <div className={`${mobileTab === "preview" ? "flex" : "hidden"} md:flex flex-1`}>
+          <CanvasPreview canvasRef={canvasRef} />
+        </div>
       </div>
     </div>
   );
 }
-
