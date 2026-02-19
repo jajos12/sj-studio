@@ -1,42 +1,164 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap");
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════
+   sudo jajos Content Studio — Design Tokens
+   Vercel / Linear / NeonDB inspired dark theme
+   ═══════════════════════════════════════════════ */
+
+@theme {
+  /* Backgrounds — layered blacks */
+  --color-bg-root: #06070b;
+  --color-bg-surface: #0a0b10;
+  --color-bg-raised: #0f1117;
+  --color-bg-elevated: #14161e;
+  --color-bg-hover: #191c26;
+
+  /* Borders */
+  --color-border-default: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.10);
+  --color-border-focus: rgba(0, 255, 136, 0.30);
+
+  /* Foreground / Text */
+  --color-fg: #edeff5;
+  --color-fg-2: #a1a7b4;
+  --color-fg-3: #6b7280;
+  --color-fg-mute: #3e4452;
+
+  /* Accent — Neon green */
+  --color-accent: #00ff88;
+  --color-accent-dim: #00cc6a;
+  --color-accent-bg: rgba(0, 255, 136, 0.06);
+  --color-accent-glow: rgba(0, 255, 136, 0.15);
+
+  /* Secondary accents */
+  --color-neon-cyan: #00e5ff;
+  --color-neon-purple: #a78bfa;
+  --color-neon-pink: #f472b6;
+  --color-neon-amber: #ffb347;
+  --color-neon-red: #ff4466;
+
+  /* Font families */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.15);
+
+  /* Layout */
+  --sidebar-w: 240px;
+  --topbar-h: 56px;
+  --controls-w: 300px;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Keyframes ─────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--color-accent-glow); }
+  50%      { box-shadow: 0 0 12px var(--color-accent-glow); }
+}
+
+/* ── Base Reset ────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-}
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  html,
+  body {
+    height: 100%;
+    font-family: var(--font-sans);
+    background: var(--color-bg-root);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+  }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  /* Links */
+  a { color: inherit; text-decoration: none; }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--color-fg-mute); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-fg-3); }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  /* ── Range Slider ──────────────────────────── */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    outline: none;
+    cursor: pointer;
+    margin: 8px 0;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    cursor: pointer;
+    margin-top: -5px;
+    transition: box-shadow 0.2s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 10px var(--color-accent-glow);
+  }
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: none;
+    cursor: pointer;
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  /* Input and textarea base */
+  input[type="text"],
+  textarea {
+    font-family: var(--font-sans);
+  }
+
+  /* Buttons base */
+  button {
+    font-family: var(--font-sans);
   }
 }
